@@ -1,4 +1,4 @@
-# MultiBanana: A Challenging Benchmark for Multi-Reference Text-to-Image Generation
+<h1 align="center">MultiBanana: A Challenging Benchmark for Multi-Reference Text-to-Image Generation</h1>
 
 <p align="center">
     <a href="">
@@ -81,7 +81,6 @@ Please set your API key in `.env` as follows
 ```
 OPENAI_API_KEY=...
 GEMINI_API_KEY=...
-
 ```
 
 Run
