@@ -5,7 +5,7 @@
         <img alt="Build" src="https://img.shields.io/badge/arXiv%20paper-XXXX">
     </a>
     <a href="">
-        <img alt="Build" src="https://img.shields.io/badge/🤗">
+        <img alt="Build" src="https://img.shields.io/badge/🤗Dataset-MultiBananaBenchmark-yellow.svg">
     </a>
 </p>
 
@@ -15,7 +15,7 @@
 
 ## Dataset
 
-The data structure at the {huggingface} is as follows.
+The data structure at the [Hugging Face dataset](https://huggingface.co/datasets/kohsei/MultiBanana-Benchmark) is as follows.
 
 ```
 data/
