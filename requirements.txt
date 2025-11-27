@@ -1,0 +1,5 @@
+google-genai
+pillow
+python-dotenv
+openai
+tqdm
