@@ -36,6 +36,11 @@ data/
 └── ...
 ```
 
+Download MultiBanana dataset by
+
+```
+git clone https://huggingface.co/datasets/kohsei/MultiBanana-Benchmark ./data
+```
 
 ## Setup
 
