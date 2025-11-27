@@ -44,6 +44,7 @@ git clone git@github.com:matsuolab/multibanana.git
 cd multibanana
 
 conda create -n multibanana python=3.12
+conda activate multibanana
 
 pip install -r requirements.txt
 ```
