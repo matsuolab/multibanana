@@ -104,7 +104,7 @@ This will evaluate all generated images and save the results in `{number}_{model
 
 ## License
 
-CC-BY 4.0 license
+Apache-2.0 license
 
 ## Acknowledgement
 This benchmark partially incorporates a subset of images from the LAION-5B dataset. 
