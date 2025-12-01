@@ -104,7 +104,11 @@ This will evaluate all generated images and save the results in `{number}_{model
 
 ## License
 
-Apache-2.0 license
+CC-BY 4.0 license
+
+## Acknowledgement
+This benchmark partially incorporates a subset of images from the LAION-5B dataset. 
+We acknowledge and thank the LAION team for making such a valuable large-scale dataset openly available to the research community.
 
 ## Citation
 
@@ -115,7 +119,7 @@ Apache-2.0 license
   year={2025}
   eprint={2511.22989},
   archivePrefix={arXiv},
-  primaryClass={cs.LG},
+  primaryClass={cs.CV},
   url={https://arxiv.org/abs/2511.22989},
 }
 ```
