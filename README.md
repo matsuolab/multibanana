@@ -1,8 +1,8 @@
 <h1 align="center">MultiBanana: A Challenging Benchmark for Multi-Reference Text-to-Image Generation</h1>
 
 <p align="center">
-    <a href="">
-        <img alt="Build" src="https://img.shields.io/badge/arXiv%20paper-XXXX">
+    <a href="https://arxiv.org/abs/2511.22989">
+      <img alt="arXiv paper 2511.22989" src="https://img.shields.io/badge/arXiv-2511.22989-b31b1b.svg">
     </a>
     <a href="https://huggingface.co/datasets/kohsei/MultiBanana-Benchmark">
         <img alt="Build" src="https://img.shields.io/badge/🤗Dataset-MultiBananaBenchmark-yellow.svg">
@@ -113,9 +113,9 @@ Apache-2.0 license
   title={MultiBanana: A Challenging Benchmark for Multi-Reference Text-to-Image Generation},
   author={Yuta Oshima and Daiki Miyake and Kohsei Matsutani and Yusuke Iwasawa and Masahiro Suzuki and Yutaka Matsuo and Hiroki Furuta},
   year={2025}
-  eprint={},
+  eprint={2511.22989},
   archivePrefix={arXiv},
   primaryClass={cs.LG},
-  url={},
+  url={https://arxiv.org/abs/2511.22989},
 }
 ```
