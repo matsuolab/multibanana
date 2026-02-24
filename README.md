@@ -1,11 +1,15 @@
 <h1 align="center">MultiBanana: A Challenging Benchmark for Multi-Reference Text-to-Image Generation</h1>
 
 <p align="center">
+    <b>🎉 Accepted to CVPR 2026 (Main) 🎉</b>
+</p>
+
+<p align="center">
     <a href="https://arxiv.org/abs/2511.22989">
       <img alt="arXiv paper 2511.22989" src="https://img.shields.io/badge/arXiv-2511.22989-b31b1b.svg">
     </a>
     <a href="https://huggingface.co/datasets/kohsei/MultiBanana-Benchmark">
-        <img alt="Build" src="https://img.shields.io/badge/🤗Dataset-MultiBananaBenchmark-yellow.svg">
+        <img alt="Build" src="https://img.shields.io/badge/🤗 Dataset-MultiBananaBenchmark-yellow.svg">
     </a>
 </p>
 
@@ -104,7 +108,7 @@ This will evaluate all generated images and save the results in `{number}_{model
 
 ## License
 
-Apache-2.0 license
+Creative Commons Attribution Non Commercial 4.0
 
 ## Acknowledgement
 This benchmark partially incorporates a subset of images from the LAION-5B dataset. 
