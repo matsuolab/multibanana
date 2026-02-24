@@ -1,7 +1,7 @@
 <h1 align="center">MultiBanana: A Challenging Benchmark for Multi-Reference Text-to-Image Generation</h1>
 
 <p align="center">
-    <b>🍌 CVPR 2026 (Main) 🍌</b>
+    <b>CVPR 2026 (Main)</b>
 </p>
 
 <p align="center">
