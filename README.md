@@ -106,6 +106,27 @@ python judge.py --base_dir ./data --model gpt --batch_size 32 --output_dir ./res
 
 This will evaluate all generated images and save the results in `{number}_{model}_judge.txt` files (e.g., `006_gemini_judge.txt`).
 
+## Annotation
+The dataset released on Hugging Face includes the following annotation files:
+
+**Task Difficulty Categories**
+
+Each task directory contains `types.json`.
+This file provides a dictionary that specifies the difficulty categories assigned to each set.
+
+The category labels are defined as follows:
+- `domain`: cross-domain
+- `scale`: scale and viewpoint differences
+- `rare`: rare concept
+- `ling`: multilingual
+
+Sets containing text that are not multilingual are labeled `font`.
+
+**Source of Reference Images**
+
+`from_where.csv` contains metadata indicating whether each reference image originates from a real dataset or was synthetically generated.
+
+
 ## License
 
 Creative Commons Attribution Non Commercial 4.0

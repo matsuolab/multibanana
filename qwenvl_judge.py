@@ -1,107 +1,68 @@
 import argparse
 import base64
-import glob
 import json
 import os
 import re
-import threading
 import time
 from collections import defaultdict
-from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
-from dotenv import load_dotenv
-from google import genai
-from openai import OpenAI
 from PIL import Image
 from tqdm import tqdm
 
-load_dotenv()
+import torch
+import warnings
+from packaging import version
+import transformers
+try:
+    current_version = transformers.__version__
+    if version.parse(current_version) != version.parse("4.57.0"):
+        warnings.warn(f"transformers version {current_version} detected, but 4.57.0 is recommended", UserWarning)
+except Exception as e:
+    warnings.warn(f"Could not check transformers version: {e}", UserWarning)
 
-gemini_api_key = os.getenv("GEMINI_API_KEY")
-gemini_client = None
-if gemini_api_key:
-    gemini_client = genai.Client(api_key=gemini_api_key)
+from transformers import Qwen3VLForConditionalGeneration, AutoProcessor
 
-openai_api_key = os.getenv("OPENAI_API_KEY")
-openai_client = None
-if openai_api_key:
-    openai_client = OpenAI(api_key=openai_api_key)
-
-IMAGE_EXTENSIONS = [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp"]
-
-
-def encode_image(image_path):
-    with open(image_path, "rb") as image_file:
-        return base64.b64encode(image_file.read()).decode("utf-8")
+from judge import encode_image, create_evaluation_prompts, get_all_numbers, IMAGE_EXTENSIONS
 
 
-def create_evaluation_prompts(instruction):
-    prompt_a = f"""You are a strict data rater specializing in grading multi-reference drien image generation. 
-You will be given reference images, task instruction, and the generation results. 
-Reference Images:"""
+class QwenVLModel:
+    def __init__(self):
+        model_name = "Qwen/Qwen3-VL-8B-Instruct"
 
-    prompt_b = f"""Editing Instruction: {instruction}
-Final Output:"""
+        self.model = Qwen3VLForConditionalGeneration.from_pretrained(
+            model_name,
+            dtype=torch.bfloat16,
+            attn_implementation="flash_attention_2",
+            device_map="cuda",
+        )
+        self.processor = AutoProcessor.from_pretrained(model_name)
 
-    prompt_c = """
-Your task is to evaluate the effectiveness of replacement editing from five independent perspectives, each on a 10-point scale.
-Note that the average score should be considered 4 points.
+    @torch.no_grad()
+    def inference(self, messages) -> str:
+        inputs = self.processor.apply_chat_template(
+            messages,
+            tokenize=True,
+            add_generation_prompt=True,
+            return_dict=True,
+            return_tensors="pt"
+        )
+        inputs = inputs.to(self.model.device)
 
-1. Text-Instruction Alignment
+        generated_ids = self.model.generate(**inputs, max_new_tokens=1024)
+        generated_ids_trimmed = [
+            out_ids[len(in_ids) :] for in_ids, out_ids in zip(inputs.input_ids, generated_ids)
+        ]
+        output_text = self.processor.batch_decode(
+            generated_ids_trimmed, skip_special_tokens=True, clean_up_tokenization_spaces=False
+        )[0]
+        return output_text
 
-Evaluate whether the generated image accurately follows the given text instruction.
-Check whether the specified objects appear in the correct positions, whether the instructed subjects are depicted properly, and whether no unintended elements are introduced.
-For example, if the instruction says "change the language," but the actual written content itself is altered incorrectly, or if unnecessary objects are added, the score should be reduced. 
-If the instruction requires including a reference subject but the generated image fails to include that referenced content, the score must be 1.
-Even if the instruction is followed correctly, the score must not exceed 6 points if the generated image still exhibits any composited or unnatural appearance.
-
-2. Reference Consistency
-
-Evaluate how consistent the generated image is with the provided reference images.
-Compare the output to each reference and assess how faithfully the structure and attributes are reproduced.
-Fine details, such as hair ornaments, patterns on clothing, and other small features, must match the references, otherwise the score must not exceed 4 points.
-If even a single object fails to follow the details of the reference images, the score must not exceed 6 points.
-
-3. Background-Subject Match
-
-Evaluate whether the subject blends naturally with the background.
-Check whether the subject appears to be floating, unnaturally pasted on, or visually inconsistent with its surroundings.
-Images that look like multiple pictures simply pasted together should receive a score of 1.
-If there is even the slightest inconsistency in style, tone, lighting, or overall visual impression compared to the reference images, the score must also not exceed 4 points.
-
-4. Physical Realism
-
-Evaluate whether the generated image maintains physical plausibility.
-Penalize cases where the image violates basic physical laws—for example, a person floating in mid-air, standing on water, or having the lower body missing despite no obstruction.
-If there is even a slight impression that the image looks composited or artificially pasted together, the score must not exceed 4 points.
-Likewise, if it is unclear whether the subject is actually making proper contact with the ground, the score must also not exceed 6 points.
-
-5. Visual Quality
-
-Evaluate the overall perceptual quality of the image.
-Assess whether the image is visually appealing and aesthetically coherent.
-If the composition appears unnatural or the image does not look aesthetically pleasing to a human observer, the score must not exceed 4 points.
-
-Each of the five scores must be evaluated independently. Do not force any score to be tied to or capped by another score.
-
-First explain the reasoning, then present the final assessment. Start the reasoning with 'Reasoning: '.
-After explaining the reasoning, present the final assessment with format below.
-
-Format:
-Instruction Alignment: <A number from 1 to 10>.
-Reference Consistency: <A number from 1 to 10>.
-Background-Subject Match: <A number from 1 to 10>.
-Physical Realism: <A number from 1 to 10>.
-Visual Quality: <A number from 1 to 10>.
-"""
-
-    return prompt_a, prompt_b, prompt_c
 
 
 def find_reference_images(directory, number):
     ref_images = []
-    i = 1
+    i = 0
     while True:
         found = False
         for ext in IMAGE_EXTENSIONS:
@@ -130,45 +91,8 @@ def find_generated_image(directory, number):
     return None
 
 
-def judge_image_with_gemini(
-    directory,
-    generated_image_path,
-    ref_image_paths,
-    prompt_path,
-    number,
-):
-    try:
-        if prompt_path.exists():
-            with open(prompt_path, "r", encoding="utf-8") as f:
-                instruction = f.read().strip()
-        else:
-            instruction = "No instruction file found"
-
-        ref_images = [Image.open(p) for p in ref_image_paths]
-
-        generated_image = Image.open(generated_image_path)
-
-        prompt_a, prompt_b, prompt_c = create_evaluation_prompts(instruction)
-
-        contents = [prompt_a] + ref_images + [prompt_b, generated_image, prompt_c]
-
-        response = gemini_client.models.generate_content(
-            model="gemini-2.5-flash",
-            contents=contents,
-        )
-
-        result_text = ""
-        for part in response.candidates[0].content.parts:
-            if part.text is not None:
-                result_text += part.text
-
-        return result_text
-
-    except Exception as e:
-        return f"Error during evaluation: {str(e)}"
-
-
-def judge_image_with_gpt(
+def judge_image_with_qwenvl(
+    qwenvl,
     directory,
     generated_image_path,
     ref_image_paths,
@@ -210,11 +134,7 @@ def judge_image_with_gpt(
 
         messages[0]["content"].append({"type": "text", "text": prompt_c})
 
-        response = openai_client.chat.completions.create(
-            model="gpt-5-2025-08-07", messages=messages, max_completion_tokens=8192
-        )
-
-        result_text = response.choices[0].message.content
+        result_text = qwenvl.inference(messages)
 
         return result_text
 
@@ -222,16 +142,7 @@ def judge_image_with_gpt(
         return f"Error during evaluation: {str(e)}"
 
 
-def get_all_numbers(directory):
-    numbers = set()
-    for ext in IMAGE_EXTENSIONS:
-        for file_path in directory.glob(f"*_generated{ext}"):
-            number = file_path.stem.replace("_generated", "")
-            numbers.add(number)
-    return sorted(numbers)
-
-
-def process_image(directory, number, task_name, model="gemini"):
+def process_image(qwenvl, directory, number, task_name, model="qwenvl"):
     try:
         output_path = directory / f"{number}_{model}_judge.txt"
 
@@ -247,25 +158,13 @@ def process_image(directory, number, task_name, model="gemini"):
         if not prompt_path:
             raise FileNotFoundError("Prompt file not found")
 
-        if model == "gemini":
-            if not gemini_client:
-                raise ValueError("GEMINI_API_KEY is not set")
-            result = judge_image_with_gemini(
-                directory, generated_image_path, ref_image_paths, prompt_path, number
-            )
-        elif model == "gpt":
-            if not openai_client:
-                raise ValueError("OPENAI_API_KEY is not set")
-            result = judge_image_with_gpt(
-                directory, generated_image_path, ref_image_paths, prompt_path, number
-            )
-        else:
-            raise ValueError(f"Unknown model: {model}")
+        result = judge_image_with_qwenvl(
+            qwenvl, directory, generated_image_path, ref_image_paths, prompt_path, number
+        )
 
         with open(output_path, "w", encoding="utf-8") as f:
             f.write(result)
 
-        time.sleep(0.5)
         return {"success": True, "task": task_name, "number": number}
 
     except Exception as e:
@@ -393,7 +292,9 @@ def extract_results(base_dir, model, output_dir):
     print(f"Processed {len(summary)} tasks, saved to {output_csv} and {output_json}")
 
 
-def main(batch_size=32, model="gemini", output_dir=None):
+def main(output_dir=None):
+    model = "qwenvl"
+
     all_tasks = collect_all_tasks(model)
     if not all_tasks:
         print("No tasks to judge. All tasks already have judge files.")
@@ -406,23 +307,11 @@ def main(batch_size=32, model="gemini", output_dir=None):
     start_time = time.time()
     results = []
 
-    with ThreadPoolExecutor(max_workers=batch_size) as executor:
-        futures = {
-            executor.submit(
-                process_image,
-                task["directory"],
-                task["number"],
-                task["task_name"],
-                model,
-            ): task
-            for task in all_tasks
-        }
+    qwenvl = QwenVLModel()
 
-        with tqdm(total=len(all_tasks), desc=f"{model.upper()} Evaluation") as pbar:
-            for future in as_completed(futures):
-                result = future.result()
-                results.append(result)
-                pbar.update(1)
+    for task in tqdm(all_tasks):
+        result = process_image(qwenvl, task["directory"], task["number"], task["task_name"], model)
+        results.append(result)
 
     elapsed_time = time.time() - start_time
     successful = sum(1 for r in results if r["success"])
@@ -438,22 +327,13 @@ def main(batch_size=32, model="gemini", output_dir=None):
         extract_results(BASE_DIR, model, output_dir)
 
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description="LLM-as-a-Judge for MultiBananaBenchmark"
+        description="LLM-as-a-Judge by Qwen3-VL for MultiBananaBenchmark"
     )
     parser.add_argument(
         "--base_dir", type=str, required=True, help="Base directory of the dataset"
-    )
-    parser.add_argument(
-        "--model",
-        type=str,
-        required=True,
-        choices=["gemini", "gpt"],
-        help="Model to use for evaluation",
-    )
-    parser.add_argument(
-        "--batch_size", type=int, default=32, help="Number of parallel workers"
     )
     parser.add_argument(
         "--output_dir",
@@ -464,4 +344,5 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     BASE_DIR = Path(args.base_dir)
-    main(batch_size=args.batch_size, model=args.model, output_dir=args.output_dir)
+    main(output_dir=args.output_dir)
+
