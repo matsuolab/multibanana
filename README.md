@@ -85,7 +85,7 @@ data/
 └── ...
 ```
 
-We use `gemini-2.5`-flash via the Google GenAI SDK, and `gpt-5` via the OpenAI SDK.
+We use `gemini-2.5`-flash via the Google GenAI SDK, and `gpt-5-2025-08-07` via the OpenAI SDK.
 
 Please set your API key in `.env` as follows
 
@@ -105,6 +105,12 @@ python judge.py --base_dir ./data --model gpt --batch_size 32 --output_dir ./res
 ```
 
 This will evaluate all generated images and save the results in `{number}_{model}_judge.txt` files (e.g., `006_gemini_judge.txt`).
+
+We also provide an evaluation script based on the open-source model Qwen3-VL as an alternative option.
+To run the script, you need to install `transformers` and `flash-attn`.
+```bash
+python qwenvl_judge.py --base_dir ./data --output_dir ./results
+```
 
 ## Annotation
 The dataset released on Hugging Face includes the following annotation files:
