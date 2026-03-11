@@ -144,13 +144,13 @@ We acknowledge and thank the LAION team for making such a valuable large-scale d
 ## Citation
 
 ```bibtex
-@inproceedings{oshima2025multibanana,
-  title={MultiBanana: A Challenging Benchmark for Multi-Reference Text-to-Image Generation},
-  author={Yuta Oshima and Daiki Miyake and Kohsei Matsutani and Yusuke Iwasawa and Masahiro Suzuki and Yutaka Matsuo and Hiroki Furuta},
-  year={2025}
-  eprint={2511.22989},
-  archivePrefix={arXiv},
-  primaryClass={cs.CV},
-  url={https://arxiv.org/abs/2511.22989},
+@misc{oshima2025multibananachallengingbenchmarkmultireference,
+      title={MultiBanana: A Challenging Benchmark for Multi-Reference Text-to-Image Generation}, 
+      author={Yuta Oshima and Daiki Miyake and Kohsei Matsutani and Yusuke Iwasawa and Masahiro Suzuki and Yutaka Matsuo and Hiroki Furuta},
+      year={2025},
+      eprint={2511.22989},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2511.22989}, 
 }
 ```
