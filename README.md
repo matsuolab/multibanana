@@ -85,7 +85,7 @@ data/
 └── ...
 ```
 
-We use `gemini-2.5`-flash via the Google GenAI SDK, and `gpt-5-2025-08-07` via the OpenAI SDK.
+We use `gemini-2.5-flash` via the Google GenAI SDK, and `gpt-5-2025-08-07` via the OpenAI SDK.
 
 Please set your API key in `.env` as follows
 
