@@ -18,7 +18,15 @@
     <img src="assets/task_example.png" alt="Task Example" width="800">
 </p>
 
-## Dataset
+## 🏆 Leaderboard
+
+MultiBanana-Bench comprises 32 tasks designed to evaluate how well image generation models can faithfully incorporate information from multiple reference images. We report evaluation scores using **Qwen3-VL-8B-Instruct**, a fixed, open-weight judge model. We hope this benchmark, along with its evaluation framework using an open-source VLM as a judge, will serve as a reliable foundation for future research in multi-reference text-to-image generation.
+
+<p align="center">
+    <img src="assets/qwen3vl_results.png" alt="Leaderboard" width="850">
+</p>
+
+## 📦 Dataset
 
 The data structure at the [Hugging Face dataset](https://huggingface.co/datasets/kohsei/MultiBanana-Benchmark) is as follows.
 
@@ -47,7 +55,7 @@ Download MultiBanana dataset by
 git clone https://huggingface.co/datasets/kohsei/MultiBanana-Benchmark ./data
 ```
 
-## Setup
+## 🛠️ Setup
 
 ```bash
 git clone git@github.com:matsuolab/multibanana.git
@@ -60,7 +68,7 @@ pip install -r requirements.txt
 ```
 
 
-## Evaluation
+## 🧪 Evaluation
 
 Generated images are expected to be saved in the same directory with the `_generated` suffix.
 
@@ -112,13 +120,13 @@ To run the script, you need to install `transformers` and `flash-attn`.
 python qwenvl_judge.py --base_dir ./data --output_dir ./results
 ```
 
-## Annotation
+## 🏷️ Annotation
 The dataset released on Hugging Face includes the following annotation files:
 
 **Task Difficulty Categories**
 
 Each task directory contains `types.json`.
-This file provides a dictionary that specifies the difficulty categories assigned to each set.
+This file provides a dictionary mapping each set to its assigned difficulty category.
 
 The category labels are defined as follows:
 - `domain`: cross-domain
@@ -132,22 +140,14 @@ Sets containing text that are not multilingual are labeled `font`.
 
 `from_where.csv` contains metadata indicating whether each reference image originates from a real dataset or was synthetically generated.
 
-## MultiBanana-Bench
-
-MultiBanana-Bench comprises 32 tasks designed to evaluate how well image generation models can faithfully incorporate information from multiple reference images. We report evaluation scores using Qwen3-VL-8B-Instruct, a fixed, open-weight judge model. We hope this benchmark, along with its evaluation framework using an open-source VLM as a judge, will serve as a reliable foundation for future research in multi-reference text-to-image generation.
-
-<p align="center">
-    <img src="assets/qwen3vl_results.png" alt="Leaderboard" width="900">
-</p>
-
-## License
+## 📄 License
 
 Creative Commons Attribution Non Commercial 4.0
 
-## Acknowledgement
+## 🙏 Acknowledgement
 This benchmark partially incorporates a subset of images from the LAION-5B dataset. We acknowledge and thank the LAION team for making such a valuable large-scale dataset openly available to the research community.
 
-## Citation
+## 🌟 Citation
 
 ```bibtex
 @misc{oshima2025multibanana,
