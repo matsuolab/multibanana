@@ -132,14 +132,20 @@ Sets containing text that are not multilingual are labeled `font`.
 
 `from_where.csv` contains metadata indicating whether each reference image originates from a real dataset or was synthetically generated.
 
+## MultiBanana-Bench
+
+MultiBanana-Bench comprises 32 multi-reference tasks designed to evaluate how well image generation models can faithfully incorporate information from multiple reference images. We report evaluation scores using Qwen3-VL-8B-Instruct, a fixed, open-weight judge model. We hope this benchmark, along with its evaluation framework using an open-source VLM as a judge, will serve as a reliable foundation for future research in multi-reference text-to-image generation.
+
+<p align="center">
+    <img src="assets/qwen3vl_results.png" alt="Leaderboard" width="800">
+</p>
 
 ## License
 
 Creative Commons Attribution Non Commercial 4.0
 
 ## Acknowledgement
-This benchmark partially incorporates a subset of images from the LAION-5B dataset. 
-We acknowledge and thank the LAION team for making such a valuable large-scale dataset openly available to the research community.
+This benchmark partially incorporates a subset of images from the LAION-5B dataset. We acknowledge and thank the LAION team for making such a valuable large-scale dataset openly available to the research community.
 
 ## Citation
 
