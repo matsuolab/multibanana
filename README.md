@@ -18,9 +18,9 @@
     <img src="assets/task_example.png" alt="Task Example" width="800">
 </p>
 
-## 🏆 Leaderboard
+## 📊 Leaderboard
 
-MultiBanana-Bench comprises 32 tasks designed to evaluate how well image generation models can faithfully incorporate information from multiple reference images. We report evaluation scores using **Qwen3-VL-8B-Instruct**, a fixed, open-weight judge model. We hope this benchmark, along with its evaluation framework using an open-source VLM as a judge, will serve as a reliable foundation for future research in multi-reference text-to-image generation.
+MultiBanana-Bench comprises 32 tasks designed to evaluate how well image generation models can faithfully incorporate information from multiple reference images. We report evaluation scores using **Qwen3-VL-8B-Instruct**, a fixed, open-weight judge model. We hope this benchmark, along with its evaluation framework using an open-source VLM as a judge, will serve as a foundation for future research in multi-reference text-to-image generation.
 
 <p align="center">
     <img src="assets/qwen3vl_results.png" alt="Leaderboard" width="850">
