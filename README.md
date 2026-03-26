@@ -9,7 +9,7 @@
       <img alt="arXiv paper 2511.22989" src="https://img.shields.io/badge/arXiv-2511.22989-b31b1b.svg">
     </a>
     <a href="https://huggingface.co/datasets/kohsei/MultiBanana-Benchmark">
-        <img alt="Build" src="https://img.shields.io/badge/🤗 Dataset-MultiBanana-Bench-yellow.svg">
+        <img alt="Build" src="https://img.shields.io/badge/🤗 Dataset-MultiBananaBenchmark-yellow.svg">
     </a>
 </p>
 
