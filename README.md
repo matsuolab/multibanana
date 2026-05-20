@@ -15,7 +15,7 @@
 
 
 <p align="center">
-    <img src="assets/multibanana_teaser.png" alt="Task Example" width="800">
+    <img src="assets/multibanana_teaser.png" alt="Task Example" width="750">
 </p>
 
 ## 🥇 Leaderboard
