@@ -15,7 +15,8 @@
 
 
 <p align="center">
-    <img src="assets/multibanana_teaser.png" alt="Task Example" width="600">
+  <img src="assets/multibanana_teaser.png" alt="Multibanana Teaser" width="368">
+  <img src="assets/task_example.png" alt="Task Example" width="432">
 </p>
 
 MultiBanana broadly covers problems specific to multi-reference settings, including **varying
