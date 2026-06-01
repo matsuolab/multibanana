@@ -14,10 +14,12 @@
 </p>
 
 
-<p align="center">
-  <img src="assets/multibanana_teaser.png" alt="Multibanana Teaser" width="368">
-  <img src="assets/task_example.png" alt="Task Example" width="432">
-</p>
+<table align="center">
+  <tr>
+    <td><img src="assets/multibanana_teaser.png" alt="Multibanana Teaser" width="368"></td>
+    <td><img src="assets/task_example.png" alt="Task Example" width="432"></td>
+  </tr>
+</table>
 
 MultiBanana broadly covers problems specific to multi-reference settings, including **varying
 the number of references** (up to 8), **domain and scale mismatches** among references (e.g., photo vs. anime), and **multilingual text
