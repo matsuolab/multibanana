@@ -154,13 +154,12 @@ This benchmark partially incorporates a subset of images from the LAION-5B datas
 ## 🌟 Citation
 
 ```bibtex
-@misc{oshima2025multibanana,
-      title={MultiBanana: A Challenging Benchmark for Multi-Reference Text-to-Image Generation}, 
-      author={Yuta Oshima and Daiki Miyake and Kohsei Matsutani and Yusuke Iwasawa and Masahiro Suzuki and Yutaka Matsuo and Hiroki Furuta},
-      year={2025},
-      eprint={2511.22989},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2511.22989}, 
+@inproceedings{oshima2026multibanana,
+    author    = {Oshima, Yuta and Miyake, Daiki and Matsutani, Kohsei and Iwasawa, Yusuke and Suzuki, Masahiro and Matsuo, Yutaka and Furuta, Hiroki},
+    title     = {MultiBanana: A Challenging Benchmark for Multi-Reference Text-to-Image Generation},
+    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+    month     = {June},
+    year      = {2026},
+    pages     = {448-460}
 }
 ```
