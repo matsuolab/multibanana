@@ -161,16 +161,8 @@ open-weight judge model, and we are grateful to the Qwen team for making capable
 vision-language models freely available.
 
 We appreciate the teams behind the models we evaluate. 
-Among proprietary systems, our study covers
-- [Nano Banana (Gemini 2.5 Flash Image)](https://deepmind.google/models/gemini-image/) from Google DeepMind,
-- [GPT-Image-1](https://openai.com/index/image-generation-api/) from OpenAI.
-
-Among open-weight models, we evaluate
-- [Qwen-Image-Edit](https://github.com/QwenLM/Qwen-Image),
-- [FLUX.1 Kontext [dev]](https://github.com/black-forest-labs/flux),
-- [OmniGen2](https://github.com/VectorSpaceLab/OmniGen2), and 
-- [DreamOmni2](https://github.com/dvlab-research/DreamOmni2)
-([arXiv:2510.06679](https://arxiv.org/abs/2510.06679)).
+Among proprietary systems, our study covers [Nano Banana (Gemini 2.5 Flash Image)](https://deepmind.google/models/gemini-image/) from Google DeepMind, and [GPT-Image-1](https://openai.com/index/image-generation-api/) from OpenAI.
+Among open-weight models, we evaluate [Qwen-Image-Edit](https://github.com/QwenLM/Qwen-Image), [FLUX.1 Kontext [dev]](https://github.com/black-forest-labs/flux), [OmniGen2](https://github.com/VectorSpaceLab/OmniGen2), and [DreamOmni2](https://github.com/dvlab-research/DreamOmni2).
 
 Finally, MultiBanana builds on a substantial body of prior work in subject-driven
 and personalized image generation, including
