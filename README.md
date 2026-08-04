@@ -149,7 +149,40 @@ Sets containing text that are not multilingual are labeled `font`.
 Creative Commons Attribution Non Commercial 4.0
 
 ## 🙏 Acknowledgement
-This benchmark partially incorporates a subset of images from the LAION-5B dataset. We acknowledge and thank the LAION team for making such a valuable large-scale dataset openly available to the research community.
+
+MultiBanana would not have been possible without the open research ecosystem
+around image generation.
+
+We thank the LAION team for openly releasing
+[LAION-5B](https://laion.ai/blog/laion-5b/),
+a subset of whose images this benchmark partially incorporates. 
+Our evaluation framework relies on [Qwen3-VL](https://github.com/QwenLM/Qwen3-VL) as a fixed,
+open-weight judge model, and we are grateful to the Qwen team for making capable
+vision-language models freely available.
+
+We appreciate the teams behind the models we evaluate. 
+Among proprietary systems, our study covers
+- [Nano Banana (Gemini 2.5 Flash Image)](https://deepmind.google/models/gemini-image/) from Google DeepMind,
+- [GPT-Image-1](https://openai.com/index/image-generation-api/) from OpenAI.
+
+Among open-weight models, we evaluate
+- [Qwen-Image-Edit](https://github.com/QwenLM/Qwen-Image),
+- [FLUX.1 Kontext [dev]](https://github.com/black-forest-labs/flux),
+- [OmniGen2](https://github.com/VectorSpaceLab/OmniGen2), and 
+- [DreamOmni2](https://github.com/dvlab-research/DreamOmni2)
+([arXiv:2510.06679](https://arxiv.org/abs/2510.06679)).
+
+Finally, MultiBanana builds on a substantial body of prior work in subject-driven
+and personalized image generation, including
+[DreamBooth](https://dreambooth.github.io/),
+[IP-Adapter](https://github.com/tencent-ailab/IP-Adapter), and
+[OmniGen](https://github.com/VectorSpaceLab/OmniGen).
+We also acknowledge earlier benchmarking efforts that shaped how this field is
+evaluated — [MagicBrush](https://osu-nlp-group.github.io/MagicBrush/) and
+[ImgEdit](https://arxiv.org/abs/2505.20275) for instruction-based editing, and
+[OmniContext](https://github.com/VectorSpaceLab/OmniGen2) for in-context,
+multi-reference generation.
+
 
 ## 🌟 Citation
 
