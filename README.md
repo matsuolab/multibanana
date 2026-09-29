@@ -1,5 +1,11 @@
 <h1 align="center">MultiBanana: A Challenging Benchmark for Multi-Reference Text-to-Image Generation</h1>
 
+
+<p align="center">
+    <b>Yuta Oshima*, Daiki Miyake*, Kohsei Matsutani, Yusuke Iwasawa, Masahiro Suzuki, Yutaka Matsuo, Hiroki Furuta</b><br>
+    (*equal contribution)
+</p>
+
 <p align="center">
     <b>🍌 CVPR 2026 (Main) 🍌</b>
 </p>
@@ -12,6 +18,14 @@
         <img alt="Build" src="https://img.shields.io/badge/🤗 Dataset-MultiBananaBenchmark-yellow.svg">
     </a>
 </p>
+
+<details open><summary>💡 You may also be interested in our other work on multi-reference image generation ✨</summary><p>
+
+> [**AutoRef: Harness Optimization for Agentic Multi-Reference Image Generation**](https://arxiv.org/abs/2609.35530) <br>
+> Yuta Oshima, Ku Onoda, Yusuke Iwasawa, Masahiro Suzuki, Yutaka Matsuo, Hiroki Furuta <br>
+> [![arXiv](https://img.shields.io/badge/Arxiv-2609.35530-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2609.35530) <br>
+
+</p></details>
 
 
 <p align="center">
@@ -186,5 +200,15 @@ multi-reference generation.
     month     = {June},
     year      = {2026},
     pages     = {448-460}
+}
+
+@misc{oshima2026autoref,
+      title={AutoRef: Harness Optimization for Agentic Multi-Reference Image Generation}, 
+      author={Yuta Oshima and Ku Onoda and Yusuke Iwasawa and Masahiro Suzuki and Yutaka Matsuo and Hiroki Furuta},
+      year={2026},
+      eprint={2609.35530},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2609.35530}, 
 }
 ```
