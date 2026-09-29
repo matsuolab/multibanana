@@ -23,6 +23,8 @@
 
 > [**AutoRef: Harness Optimization for Agentic Multi-Reference Image Generation**](https://arxiv.org/abs/2609.35530) <br>
 > Yuta Oshima, Ku Onoda, Yusuke Iwasawa, Masahiro Suzuki, Yutaka Matsuo, Hiroki Furuta <br>
+> [![github](https://img.shields.io/badge/-Github-black?logo=github)](https://github.com/KuOnoda/AutoRef)
+> [![github](https://img.shields.io/github/stars/KuOnoda/AutoRef.svg?style=social)](https://github.com/KuOnoda/AutoRef)
 > [![arXiv](https://img.shields.io/badge/Arxiv-2609.35530-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2609.35530) <br>
 
 </p></details>
